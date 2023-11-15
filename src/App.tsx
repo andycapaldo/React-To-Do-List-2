@@ -23,7 +23,7 @@ export default function App() {
     const handleDeleteClick = (task: string):void => {
       const updatedToDos = toDos.filter(todo => todo !== task);
       setToDos(updatedToDos);
-      flashMessage(`Task ${task} Deleted!`)
+      flashMessage(`${task} Deleted!`)
     }
 
     const handleEditClick = (task: string):void => {

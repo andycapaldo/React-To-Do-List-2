@@ -1,13 +1,16 @@
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import { useState } from 'react'
 
 type ToDoDisplayProps = {
     toDos: string[],
+    editOn?: false,
     handleDelete: (task: string) => void,
-    handleEdit: (task: string) => void;
+    handleEdit: (task: string) => void
 }
 
 export default function ToDoDisplay({ toDos, handleDelete, handleEdit }: ToDoDisplayProps) {
+
   return (
     <>
         <h1 className="text-center mt-3">To Do List</h1>
