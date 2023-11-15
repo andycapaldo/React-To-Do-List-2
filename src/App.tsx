@@ -5,12 +5,10 @@ import ToDoForm from './components/ToDoForm';
 import ToDoDisplay from './components/ToDoDisplay';
 import AlertMessage from './components/AlertMessage';
 import './App.css';
-import { Alert } from 'react-bootstrap';
 
 export default function App() {
     const [toDos, setToDos] = useState<string[]>([]);
     const [message, setMessage] = useState<string|null>(null);
-    const [edit, setEdit] = useState<string|null>(null);
 
     const handleFormSubmit = (event: React.FormEvent) => {
       event.preventDefault();
@@ -26,10 +24,6 @@ export default function App() {
       flashMessage(`${task} Deleted!`)
     }
 
-    const handleEditClick = (task: string):void => {
-      console.log(task);
-    }
-
     const flashMessage = (newMessage:string|null): void => {
       setMessage(newMessage)
     }
@@ -39,8 +33,8 @@ export default function App() {
       <Container>
         <Header/>
           <ToDoForm handleSubmit={handleFormSubmit}/>
-          <ToDoDisplay toDos={toDos} handleDelete={handleDeleteClick} handleEdit={handleEditClick}/>
           {message && <AlertMessage message={message} flashMessage={flashMessage}></AlertMessage>}
+          <ToDoDisplay toDos={toDos} handleDelete={handleDeleteClick} />
       </Container>
     </>
   )
