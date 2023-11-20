@@ -34,7 +34,7 @@ export default function App() {
         <Header/>
           <ToDoForm handleSubmit={handleFormSubmit}/>
           {message && <AlertMessage message={message} flashMessage={flashMessage}></AlertMessage>}
-          <ToDoDisplay toDos={toDos} handleDelete={handleDeleteClick} />
+          <ToDoDisplay toDos={toDos} handleDelete={handleDeleteClick} setToDos={setToDos} />
       </Container>
     </>
   )

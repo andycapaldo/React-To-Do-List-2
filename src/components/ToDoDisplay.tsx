@@ -5,27 +5,33 @@ import AlertMessage from './AlertMessage'
 
 type ToDoDisplayProps = {
     toDos: string[],
-    handleDelete: (task: string) => void
+    handleDelete: (task: string) => void,
+    setToDos: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export default function ToDoDisplay({ toDos, handleDelete }: ToDoDisplayProps) {
+export default function ToDoDisplay({ toDos, handleDelete, setToDos }: ToDoDisplayProps) {
 
     const [editOn, setEditOn] = useState<number | null>(null);
+    const [editedTask, setEditedTask] = useState<string>('');
     const [message, setMessage] = useState<string|null>(null);
 
     const handleEdit = (index: number) => {
         setEditOn(index);
+        setEditedTask(toDos[index]);
     };
 
-    const handleEditSubmit = (editedTask: string, index: number) => {
-        toDos[index] = editedTask;
+    const handleEditSubmit = (index: number) => {
+        const updatedToDos = [...toDos]
+        updatedToDos[index] = editedTask;
         setEditOn(null);
-        flashMessage(`Task #${index + 1} has been edited!`);
+        setMessage(`Task #${index + 1} has been edited!`);
+        flashMessage(null);
+        setToDos(updatedToDos)
     }
 
     const flashMessage = (newMessage:string|null): void => {
         setMessage(newMessage)
-      }
+    }
 
   return (
     <>
@@ -45,7 +51,8 @@ export default function ToDoDisplay({ toDos, handleDelete }: ToDoDisplayProps) {
                             <td>
                             {editOn === index ? (
                                 <div>
-                                    <input type="text" value={task} onChange={(e => handleEditSubmit(e.target.value, index))} />
+                                    <input type="text"  name='task' value={editedTask} onChange={(e) => setEditedTask(e.target.value)} />
+                                    <Button variant="success" onClick={() => handleEditSubmit(index)}>Save</Button>
                                 </div>
                             ) : (
                             <div>
